@@ -1,0 +1,11 @@
+services:
+  oneway_clipboard:
+    image: oneway_clipboard:0.0.1
+    volumes:
+      - ./data:/data
+    environment:
+      DB_PATH: "/data/data.json"
+      KEY_PATH: "/data/.ssh"
+    ports:
+      - 5000:5000
+    restart: unless-stopped
