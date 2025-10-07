@@ -1,0 +1,18 @@
+FROM python:3.13-slim
+
+WORKDIR /app
+
+# Устанавливаем flit
+RUN pip install flit
+
+# Копируем pyproject.toml и README (flit требует метаданные)
+COPY pyproject.toml README.md src/ ./
+
+RUN useradd -m appuser
+USER appuser
+# Ставим зависимости и пакет
+RUN flit install --deps production --symlink
+
+
+CMD ["python","-m","flask", "--app", "oneway_clipboard.flask.app", "run", "--host=0.0.0.0"]
+
