@@ -5,13 +5,13 @@ from flask import (
 )
 from oneway_clipboard.domain.model.model import ClipboardMessage
 from oneway_clipboard.domain.model.adapter import ClipboardMessageTransfer
+import shutil
 
 
 bp = Blueprint('api',__name__,url_prefix='/api')
 
 @bp.route('/tx_clipboard', methods=('GET','POST'))
 def tx_clipboard():
-    
     UPLOAD_DIR = os.path.join('/tmp/upload',str(uuid.uuid4()))
     os.makedirs(UPLOAD_DIR, exist_ok=True)
     text = ''
@@ -40,6 +40,7 @@ def tx_clipboard():
                 
             tx_msg = ClipboardMessageTransfer(msg)
             tx_msg.transfer_msg()
+            shutil.rmtree(UPLOAD_DIR)
             return jsonify({'status':'ok'})
     return jsonify({'status':'failure'})
     

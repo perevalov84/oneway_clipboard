@@ -31,7 +31,6 @@ class ClipboardMessageTransfer(ClipboardMessageTransferInterface):
        
        user_dst_info = get_user_data(self.msg)
        if len(user_dst_info) > 0:
-        
         for record in user_dst_info:
           client = SSHClient()
           client.set_missing_host_key_policy(AutoAddPolicy())
