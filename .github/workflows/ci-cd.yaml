@@ -24,7 +24,7 @@ jobs:
         run: |
           pip install flit pytest
           flit install --deps=production
-          pytest
+          pytest -m "not integration"
 
 
       - name: Log in to GHCR

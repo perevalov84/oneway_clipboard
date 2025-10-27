@@ -4,6 +4,7 @@ from oneway_clipboard.domain.model.services import save_message
 import json
 from oneway_clipboard.config import DB_PATH
 import tempfile
+import pytest
 
 
 def test_create_clipboard_message_valid_parameters():
@@ -17,11 +18,13 @@ def test_create_clipboard_message_valid_parameters():
     assert isinstance(msg, ClipboardMessage)
     
 
+@pytest.mark.integration
 def test_read_users_database():
     
     with open(DB_PATH,'r') as file:
         users_data = json.load(file)
 
+@pytest.mark.integration
 def test_send_clipboard_message_to_srv_via_ssh():
 
     msg = ClipboardMessage(
@@ -40,6 +43,7 @@ def test_flask_health(client):
     assert r.get_json() == {"status":"ok"}
     
 
+@pytest.mark.integration
 def test_flask_tx_clipboard(client):
     remote_addr = '10.0.0.68'
     r = client.post(
@@ -50,6 +54,7 @@ def test_flask_tx_clipboard(client):
     assert r.status_code == 200
     assert r.get_json() == {"status":"ok"}
     
+@pytest.mark.integration
 def test_flask_tx_files(client):
     f = tempfile.NamedTemporaryFile(delete=False)
     f.write(b'hello!')
