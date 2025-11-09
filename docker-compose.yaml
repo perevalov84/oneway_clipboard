@@ -1,6 +1,6 @@
 services:
   oneway_clipboard:
-    image: oneway_clipboard:0.0.1
+    image: ghcr.io/perevalov84/oneway_clipboard:main
     volumes:
       - ./data:/data
     environment:
