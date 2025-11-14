@@ -48,7 +48,7 @@ class ClipboardMessageTransfer(ClipboardMessageTransferInterface):
 
           if files:
             stdin, stdout, stderr = client.exec_command('echo %USERPROFILE%')
-            user_profile_win = stdout.read().decode().strip()
+            user_profile_win = stdout.read().decode("cp866").strip()
             remote_filelist = []
             sftp_client = client.open_sftp()
             
